@@ -78,12 +78,12 @@ public class Shell {
     ***************************************************************************/
     
     // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
+    public static boolean less(Comparable v, Comparable w) {
         return v.compareTo(w) < 0;
     }
         
     // exchange a[i] and a[j]
-    private static void exch(Object[] a, int i, int j) {
+    public static void exch(Object[] a, int i, int j) {
         Object swap = a[i];
         a[i] = a[j];
         a[j] = swap;
@@ -93,7 +93,7 @@ public class Shell {
    /***************************************************************************
     *  Check if array is sorted - useful for debugging.
     ***************************************************************************/
-    private static boolean isSorted(Comparable[] a) {
+    public static boolean isSorted(Comparable[] a) {
         for (int i = 1; i < a.length; i++)
             if (less(a[i], a[i-1])) return false;
         return true;
