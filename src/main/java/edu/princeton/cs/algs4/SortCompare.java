@@ -26,8 +26,9 @@ package edu.princeton.cs.algs4;
 import java.util.Random;
 
 public class SortCompare {
-	private static final long seed=23L;
-	private static final Random random=new Random(seed);    // pseudo-random number generator
+	private static final long seed = 23L;
+	private static final Random random = new Random(System.currentTimeMillis());    // pseudo-random number generator
+
 	// This class should not be instantiated.
 	private SortCompare() {
 	}
@@ -76,11 +77,11 @@ public class SortCompare {
 		Integer[] a = new Integer[N];
 		// Perform one experiment (generate and sort an array).
 		for (int i = 0; i < N; i++)
-			a[i] = random.nextInt(999999);
+			a[i] = random.nextInt(999);
 		return a;
 	}
 
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 
 		String alg1 = args[0];
 
@@ -93,6 +94,48 @@ public class SortCompare {
 		double t1 = timeRandomInput(alg1, N, T);
 		// Doubles\n %s is", N, alg1); StdOut.printf(" %.1f times faster than %s\n", t2/t1, alg2);
 
+	}
+
+	public static void main(String[] args) {
+		while (true) {
+			Integer[] input = generateRandomArray(10);
+			shellSort(input);
+			assert Shell.isSorted(input);
+		}
+	}
+
+	public static void shellSort(Comparable[] arr) {
+		final int N = arr.length;
+		int h = 1;
+		while (h < N / 3)
+			h = 3 * h + 1;
+		while (h >= 1) {
+			for (int i = h; i < N; i++) {
+				for (int j = i; j - h >= 0 && !Shell.less(arr[j - h], arr[j]); j -= h) {
+					Shell.exch(arr, j - h, j);
+				}
+			}
+			h = h / 3;
+		}
+	}
+
+
+	public static void shellSortSeqInArray(Comparable[] arr) {
+		int N = arr.length;
+		int h = 1;
+
+		while (h < N / 3) {
+			h = h * 3 + 1;
+		}
+		while (h >= 1) {
+			int compareCount = 0;
+			for (int i = h; i < N; i++) {
+				for (int j = i; j > 0 && compareCount++ > -1 && !Shell.less(arr[j - h], arr[j]); j -= h) {
+					Shell.exch(arr, j - h, j);
+				}
+			}
+			h = h / 3;
+		}
 	}
 
 }
