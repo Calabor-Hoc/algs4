@@ -58,6 +58,7 @@ public class MyQuickSort {
 	 */
 
 	public static void quickSort(Comparable[] a) {
+		StdRandom.shuffle(a);
 		quickSort(a, 0, a.length - 1);
 	}
 
@@ -103,10 +104,13 @@ public class MyQuickSort {
 	 */
 	public static void main(String[] args) throws InterruptedException {
 		while (true) {
-			final Integer[] integers =SortCompare.generateRandomArray(1000);
+			final Integer[] integers =SortCompare.generateRandomArray(10000000);
+			final Stopwatch stopwatch = new Stopwatch();
 			MyQuickSort.quickSort(integers);
+//			Quick.sort(integers);
 			final boolean sorted = Shell.isSorted(integers);
 			StdOut.println(sorted);
+			StdOut.println("time:"+stopwatch.elapsedTime());
 			Thread.sleep(1000l);
 		}
 
