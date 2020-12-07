@@ -64,11 +64,11 @@ public class MyQuickSort {
 
 	private static void quickSort(Comparable[] a, int l, int r) {
 		final int pivotIndex = pivotArray(a, l, r);
-		if ((pivotIndex-1)-l > 0) {
+		if ((pivotIndex - 1) - l > 0) {
 			quickSort(a, l, pivotIndex - 1);
 		}
-		if (r-(pivotIndex+1) > 0) {
-			quickSort(a, pivotIndex+1, r);
+		if (r - (pivotIndex + 1) > 0) {
+			quickSort(a, pivotIndex + 1, r);
 		}
 	}
 
@@ -87,7 +87,9 @@ public class MyQuickSort {
 				ri--;
 			}
 			if (ri > li) {
-				exch(a, li, ri);
+				if (!a[li].equals(a[ri])) {
+					exch(a, li, ri);
+				}
 				li++;
 				ri--;
 			} else {
@@ -105,14 +107,18 @@ public class MyQuickSort {
 	 * @param args the command-line arguments
 	 */
 	public static void main(String[] args) throws InterruptedException {
+		double totalTime = 0;
 		while (true) {
-			final Integer[] integers =SortCompare.generateRandomArray(10000000);
+			final Integer[] integers = SortCompare.generateRandomArray(10000000);
 			final Stopwatch stopwatch = new Stopwatch();
-			MyQuickSort.quickSort(integers);
-//			Quick.sort(integers);
+//			MyQuickSort.quickSort(integers);
+						Quick.sort(integers);
 			final boolean sorted = Shell.isSorted(integers);
 			StdOut.println(sorted);
-			StdOut.println("time:"+stopwatch.elapsedTime());
+			final double elapsedTime = stopwatch.elapsedTime();
+			totalTime += elapsedTime;
+			StdOut.println("time:" + stopwatch.elapsedTime());
+			StdOut.println("total time:" + totalTime);
 			Thread.sleep(1000l);
 		}
 
