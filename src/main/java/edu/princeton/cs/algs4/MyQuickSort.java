@@ -83,11 +83,13 @@ public class MyQuickSort {
 			for (; li <= r && less(a[li], pv); ) {
 				li++;
 			}
-			for (; ri >= li && !less(a[ri], pv); ) {
+			for (; ri >= li && less(pv, a[ri]); ) {
 				ri--;
 			}
 			if (ri > li) {
 				exch(a, li, ri);
+				li++;
+				ri--;
 			} else {
 				exch(a, l, li - 1);
 				return li - 1;
