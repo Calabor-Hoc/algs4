@@ -53,24 +53,18 @@ public class MyMerge {
 	public static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
 		if (hi + 1 - lo >= 0)
 			System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
+		int k =lo;
 		int left = lo;
 		int right = mid + 1;
-		for (int i = lo; i <= hi; i++) {
-			if (left > mid) {
-				a[i] = aux[right++];
-				continue;
-			}
-			if (right > hi) {
-				a[i] = aux[left++];
-				continue;
-			}
+		while (left <= mid && right <= hi) {
 			if (less(aux[right], aux[left])) {
-				a[i] = aux[right];
-				right++;
+				a[k++] = aux[right++];
 			} else {
-				a[i] = aux[left];
-				left++;
+				a[k++] = aux[left++];
 			}
+		}
+		while (left <= mid) {
+			a[k++] = aux[left++];
 		}
 	}
 
@@ -115,17 +109,19 @@ public class MyMerge {
 		while (true) {
 			loop++;
 			final Integer[] input = SortCompare.generateRandomArray(10000000);
-			Quick3way.sort(input);
 			final Stopwatch stopwatch = new Stopwatch();
 			MyMerge.sort(input);
-			//			Merge.sort(input);
-			final boolean sorted = Shell.isSorted(input);
-			StdOut.println(sorted);
+//			Merge.sort(input);
 			final double elapsedTime = stopwatch.elapsedTime();
+			final boolean sorted = Shell.isSorted(input);
+			if (!sorted) {
+				throw new IllegalStateException("Sort error!");
+			}
 			totalTime += elapsedTime;
-			StdOut.println("time:" + stopwatch.elapsedTime());
+			StdOut.println("time:" + elapsedTime);
 			averageTime = totalTime / loop;
 			StdOut.println(String.format("average time: %.3f", averageTime));
+
 			Thread.sleep(100l);
 		}
 	}
