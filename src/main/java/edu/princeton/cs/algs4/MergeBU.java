@@ -50,7 +50,7 @@ public class MergeBU {
     private MergeBU() { }
 
     // stably merge a[lo..mid] with a[mid+1..hi] using aux[lo..hi]
-    private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
+    public static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
 
         // copy to aux[]
         for (int k = lo; k <= hi; k++) {

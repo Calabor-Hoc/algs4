@@ -50,7 +50,7 @@ public class MyMerge {
 	private MyMerge() {
 	}
 
-	private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
+	public static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
 		if (hi + 1 - lo >= 0)
 			System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
 		int left = lo;
