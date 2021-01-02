@@ -56,15 +56,16 @@ public class MyMerge {
 		int k =lo;
 		int left = lo;
 		int right = mid + 1;
-		while (left <= mid && right <= hi) {
-			if (less(aux[right], aux[left])) {
-				a[k++] = aux[right++];
+		for (int i = lo; i <= hi; i++) {
+			if (left > mid) {
+				break;
+			} else if (right > hi) {
+				a[i] = aux[left++];
+			} else if (less(aux[right], aux[left])) {
+				a[i] = aux[right++];
 			} else {
-				a[k++] = aux[left++];
+				a[i] = aux[left++];
 			}
-		}
-		while (left <= mid) {
-			a[k++] = aux[left++];
 		}
 	}
 
@@ -108,7 +109,7 @@ public class MyMerge {
 		double averageTime = 0;
 		while (true) {
 			loop++;
-			final Integer[] input = SortCompare.generateRandomArray(10000000);
+			final Integer[] input = SortCompare.generateRandomArray(100000);
 			final Stopwatch stopwatch = new Stopwatch();
 			MyMerge.sort(input);
 //			Merge.sort(input);
